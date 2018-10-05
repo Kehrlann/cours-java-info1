@@ -1,0 +1,35 @@
+body {
+  overflow-y: scroll;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+#main {
+  width: 100%;
+  max-width: 1000px;
+}
+
+#header {
+  margin-top: 20px;
+  padding: 0 1em 1em 1em;
+}
+
+#content {
+  margin: 2em 1em;
+}
+
+// Code blocks
+figure.highlight {
+  max-width: 100%;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+ul.roomy-list > li {
+  margin-bottom: 10px;
+}

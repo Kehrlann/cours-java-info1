@@ -1,0 +1,44 @@
+@import '_colors';
+@import '_breakpoints';
+
+hr {
+  background-color: $green;
+  border: none;
+  height: 2px;
+}
+
+#post-metadata {
+  font-style: italic;
+  margin: 0 0.5em 2em 0.5em;
+}
+
+h2.section-header {
+  border-bottom: 2px solid $green;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.left-emboss {
+  border-left: 5px solid $lightgreen;
+  padding-left: 15px;
+
+  h3 {
+    margin-top: 0.5em;
+  }
+}
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+  margin-top: 20px;
+
+  & > * {
+    flex: 1 1 250px;
+    margin: 1em 0.5em;
+  }
+}
+
+pre {
+  padding: 12px 12px;
+}
