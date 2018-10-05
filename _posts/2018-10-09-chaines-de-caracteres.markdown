@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Chaînes de caractères'
-date: 2018-10-10 02:00
+date: 2018-10-09 02:00
 ---
 
 ## Création, concaténation
