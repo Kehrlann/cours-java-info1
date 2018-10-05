@@ -6,7 +6,7 @@ layout: page
 title: Liste des cours
 ---
 
-{% for post in site.posts %}
+{% for post in site.posts reversed %}
 
 <li>
     <span>{{ post.date | date: "%d / %m / %Y" }} :&nbsp;</span>
