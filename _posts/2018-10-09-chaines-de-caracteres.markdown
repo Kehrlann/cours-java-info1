@@ -62,7 +62,7 @@ date: 2018-10-09 02:00
   ); // plusieurs secondes
 
   start = System.currentTimeMillis();
-  StringBuffer myBuffer = new StringBuffer(nombreDeCaracteres);
+  StringBuffer myBuffer = new StringBuffer();
   for (int i = 0; i < nombreDeCaracteres; i++) {
     myBuffer.append("a");
   }
