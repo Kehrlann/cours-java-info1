@@ -17,7 +17,12 @@ date: 2018-10-09 02:00
 
 ```java
   String one = "alpha";
-  String two = "alpha";
+
+  // Recopie manuelle
+  String two = "";
+  for (char c : one.toCharArray()) {
+    two += c;
+  }
 
   System.out.println(one == two); // false, ce sont deux références différents
 
