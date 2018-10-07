@@ -47,7 +47,26 @@ date: 2018-10-09 02:00
   // et bien d'autres ! Ctrl + Espace dans Eclipse
 ```
 
-## StringBuffer: chaînes de caractères performantes
+## StringBuffer: chaînes de caractères "modifiables"
+
+```java
+		  StringBuffer myBuffer = new StringBuffer();
+		  myBuffer.append("Hello, ");
+		  myBuffer.append("world ");
+		  myBuffer.append("!");
+
+      // Ajouter "Oh ..." au début
+		  myBuffer.insert(0, "Oh ... ");
+
+
+      // Remplacer le dernier caractère par " ...?"
+		  int currentLength = myBuffer.length();
+		  myBuffer.replace(currentLength - 1, currentLength, " ...?");
+
+		  System.out.println(myBuffer.toString());
+```
+
+## String vs StringBuffer: performance
 
 ```java
   int nombreDeCaracteres = 100_000;
