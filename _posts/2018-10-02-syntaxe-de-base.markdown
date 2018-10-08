@@ -70,7 +70,7 @@ date: 2018-10-02 01:00
           break;
         }
 
-        // Sinon, lire la ligne, la jeter, et afficher un message à l'utilisateur
+        // Sinon, lire la ligne, ne pas l'utiliser, et afficher un message à l'utilisateur
         monScanner.nextLine();
         System.out.println("Ceci n'est pas un entier ...");
       }
