@@ -32,3 +32,51 @@ date: 2018-10-23 01:00
     }
   }
 ```
+
+## Constructeurs
+
+```java
+  class CercleConstructeurs {
+    public final String couleur;
+    public double rayon = 0;
+
+    public CercleConstructeurs() {
+      this(0, "NOIR");
+    }
+
+    public CercleConstructeurs(double rayon) {
+      this(rayon, "NOIR");
+    }
+
+    public CercleConstructeurs(String couleur) {
+      this(0, couleur);
+    }
+
+    public CercleConstructeurs(double rayon, String couleur) {
+      this.rayon = rayon;
+      this.couleur = couleur;
+    }
+
+    public void afficherInformations() {
+      System.out.printf(
+        "Ceci est un cercle de couleur: %s. Le rayon vaut %.2f.%n",
+        this.couleur,
+        this.rayon
+      );
+    }
+  }
+
+  class Constructeurs {
+    public static void main(String[] args) {
+      CercleConstructeurs un = new CercleConstructeurs();
+      CercleConstructeurs deux = new CercleConstructeurs(5.0);
+      CercleConstructeurs trois = new CercleConstructeurs("BLEU");
+      CercleConstructeurs quatre = new CercleConstructeurs(12.0, "ROUGE");
+
+      un.afficherInformations();
+      deux.afficherInformations();
+      trois.afficherInformations();
+      quatre.afficherInformations();
+    }
+  }
+```
