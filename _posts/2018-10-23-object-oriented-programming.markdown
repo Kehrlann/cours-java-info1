@@ -173,3 +173,56 @@ date: 2018-10-23 01:00
     }
   }
 ```
+
+## Types énumérés
+
+```java
+  enum Personne {
+    // Les différentes valeurs
+    BEBE(0, 3),
+    ENFANT(4, 12),
+    ADOLESCENT(13, 18),
+    ADULTE(18, Integer.MAX_VALUE);
+
+    // Attributs d'instance
+    private final int ageMin;
+    private final int ageMax;
+
+    // Constructeur
+    Personne(int ageMin, int ageMax) {
+      this.ageMin = ageMin;
+      this.ageMax = ageMax;
+    }
+
+    // Méthode
+    public boolean isCloserToMaxAge(int age) {
+      double middleAge = (this.ageMax + this.ageMin) / 2.0;
+      return age >= middleAge;
+    }
+
+    // Méthode statique
+    public static Personne getPersonneForAge(int age) {
+      if (age <= BEBE.ageMax) {
+        return BEBE;
+      } else if (age <= ENFANT.ageMax) {
+        return ENFANT;
+      } else if (age <= ADOLESCENT.ageMax) {
+        return ADOLESCENT;
+      } else {
+        return ADULTE;
+      }
+
+    }
+  }
+
+  class TypesEnumeres {
+
+    public static void main(String[] args) {
+      System.out.println(Personne.ENFANT.isCloserToMaxAge(5));  // false
+      System.out.println(Personne.ENFANT.isCloserToMaxAge(11)); // true
+
+      Personne personne = Personne.getPersonneForAge(42);
+      System.out.println(personne); // ADULTE
+    }
+  }
+```
