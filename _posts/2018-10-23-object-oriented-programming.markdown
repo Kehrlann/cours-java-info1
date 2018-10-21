@@ -80,3 +80,54 @@ date: 2018-10-23 01:00
     }
   }
 ```
+
+## Visibilité (public, private) et final
+
+```java
+  class CercleVisibilite {
+    public final String couleur;
+    private double rayon;
+
+    public CercleVisibilite(double rayon, String couleur) {
+      this.rayon = rayon;
+      this.couleur = couleur;
+    }
+
+    public void doublerRayon() {
+      if(peutDoublerRayon()) {
+        this.rayon *= 2;
+      }
+    }
+
+    private boolean peutDoublerRayon() {
+      return this.rayon < 10;
+    }
+
+    public void afficherInformations() {
+      System.out.printf("Cercle(couleur=%s, rayon=%.2f)%n", this.couleur, this.rayon);
+    }
+  }
+
+  class Visibilite {
+    public static void main(String[] args) {
+      CercleVisibilite cercle = new CercleVisibilite(3, "ROUGE");
+
+      // Impossible ! rayon est "private"
+      // System.out.println(cercle.rayon);
+
+      System.out.println(cercle.couleur); // "ROUGE"
+
+      // Impossilbe ! couleur est "final"
+      // cercle.couleur = "MAUVE";
+
+      cercle.afficherInformations(); // Cercle(couleur=ROUGE, rayon=6.00)
+      cercle.doublerRayon();  // ok, méthode public, paramètre privé
+      cercle.afficherInformations(); // Cercle(couleur=ROUGE, rayon=12.00)
+      cercle.doublerRayon(); // ok
+      cercle.afficherInformations(); // Cercle(couleur=ROUGE, rayon=12.00)
+
+      // Impossible ! cette méthode est "private"
+      // cercle.peutDoublerRayon();
+    }
+  }
+```
