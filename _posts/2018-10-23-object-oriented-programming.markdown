@@ -131,3 +131,45 @@ date: 2018-10-23 01:00
     }
   }
 ```
+
+## Statics
+
+```java
+  class Eleve {
+    // statics
+    public static int PROMO = 2018;
+    private static int NOMBRE_TOTAL = 0;
+
+    // attributs
+    public String nom;
+
+    public Eleve(String nom) {
+      this.nom = nom;
+      NOMBRE_TOTAL++;
+    }
+
+    // methodes statiques
+    public static int getNombreTotal() {
+      return NOMBRE_TOTAL;
+    }
+  }
+
+  class Statics {
+    public static void main(String[] args) {
+      System.out.println(Eleve.PROMO); // 2018
+      Eleve.PROMO = 2020;
+      System.out.println(Eleve.PROMO); // 2020
+
+      System.out.println(Eleve.getNombreTotal()); // 0
+
+      // impossible : c'est privé
+      // System.out.println(Eleve.NOMBRE_TOTAL);
+
+      Eleve rene = new Eleve("René");
+      Eleve celine = new Eleve("Céline");
+      System.out.println(rene.PROMO); // à éviter, ici 12
+
+      System.out.println(Eleve.getNombreTotal()); // 2
+    }
+  }
+```
