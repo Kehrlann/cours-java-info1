@@ -1,0 +1,237 @@
+---
+layout: post
+title: 'Interfaces graphiques'
+date: 2019-01-22 01:00
+---
+
+## Exemple de "Frame" (fenêtre avec boutons)
+
+```java
+  import java.awt.*;
+
+  public class SimpleFrameMain {
+
+      public static void main(String[] args) {
+          SimpleFrame fenetre = new SimpleFrame();
+      }
+  }
+
+  class SimpleFrame extends Frame {
+
+      public SimpleFrame() {
+          super("Test de fenêtre");
+          this.setSize(400, 600);
+          this.setVisible(true);
+          this.add(new Label("hello"));
+      }
+  }
+```
+
+## Exemple de Border Layout
+
+```java
+  import java.awt.*;
+
+  class SimpleBorderLayout extends Frame {
+      SimpleBorderLayout() {
+          super("Fun Border layout");
+          this.setSize(400, 600);
+
+          // Configuration
+          this.setLayout(new BorderLayout());
+          this.setFont(new Font("Arial", Font.BOLD, 15));
+
+          // Ajout d'éléments
+          this.add(new Label("En haut"), BorderLayout.NORTH);
+          this.add(new Label("En bas ..."), BorderLayout.SOUTH);
+
+          Panel bluePanel = new Panel();
+          bluePanel.setBackground(Color.BLUE);
+
+          Panel redPanel = new Panel();
+          redPanel.setBackground(Color.RED);
+
+          this.add(bluePanel, BorderLayout.WEST);
+          this.add(redPanel, BorderLayout.EAST);
+
+          this.add(new Button("Click me !"));
+
+          this.setVisible(true);
+      }
+
+      public static void main(String[] args) {
+          new SimpleBorderLayout();
+      }
+  }
+```
+
+## Grid Layout
+
+```java
+  import java.awt.*;
+
+    class SimpleGridLayout extends Frame {
+        SimpleGridLayout() {
+            super("Super Grid Layout");
+            this.setSize(400, 600);
+
+            this.setLayout(new GridLayout(2, 2));
+            Color[] colors = new Color[]{Color.BLUE, Color.BLACK, Color.ORANGE, Color.MAGENTA};
+
+            for (Color color : colors) {
+                Panel panel = new Panel();
+                panel.setBackground(color);
+                this.add(panel);
+            }
+
+            this.setVisible(true);
+        }
+
+      public static void main(String[] args) {
+          new SimpleGridLayout();
+      }
+  }
+```
+
+## Clic bouton et fermeture de fenêtre
+
+```java
+  import java.awt.*;
+  import java.awt.event.*;
+
+  class SimpleEventFrame extends CloseableFrame {
+
+      private final Label label;
+      private int counter = 0;
+
+      SimpleEventFrame() {
+          super("Event listening");
+          this.setSize(400, 600);
+
+          setLayout(new BorderLayout());
+
+          label = new Label("Et si on cliquait ?");
+          label.setFont(new Font("Arial", Font.BOLD, 15));
+          add(label, BorderLayout.NORTH);
+
+          Button button = new Button("Cliquez moi !");
+          button.addActionListener(new MyButtonListener(this));
+          add(button, BorderLayout.CENTER);
+
+          setVisible(true);
+      }
+
+      void incrementCounter() {
+          label.setText(String.format("Vous avez cliqué %d fois", ++counter));
+      }
+
+      public static void main(String[] args) {
+          new SimpleEventFrame();
+      }
+  }
+
+  class MyButtonListener implements ActionListener {
+      private SimpleEventFrame parent;
+
+      MyButtonListener(SimpleEventFrame parent) {
+          this.parent = parent;
+      }
+
+      @Override
+      public void actionPerformed(ActionEvent actionEvent) {
+          this.parent.incrementCounter();
+      }
+  }
+
+  public class CloseableFrame extends Frame {
+      public CloseableFrame(String title) {
+          super(title);
+          addWindowListener(new QuittingWindowListener());
+      }
+  }
+
+  class QuittingWindowListener extends WindowAdapter {
+      @Override
+      public void windowClosing(WindowEvent windowEvent) {
+          System.exit(0);
+      }
+  }
+```
+
+## Canvas et dessin
+
+Penser à utiliser la CloseableFrame de l'exemple précédent.
+
+```java
+  import java.awt.*;
+  import java.awt.event.*;
+
+  class SimplePainter extends CloseableFrame {
+
+      private final SimpleCanvas canvas;
+
+      SimplePainter() {
+          super("Let's Draw !");
+          this.setSize(600, 600);
+
+          canvas = new SimpleCanvas();
+          canvas.setBackground(Color.WHITE);
+
+          CanvasMouseMotionListener motionListener = new CanvasMouseMotionListener(canvas);
+          canvas.addMouseMotionListener(motionListener);
+
+          CanvasMouseListener mouseListener = new CanvasMouseListener(canvas);
+          canvas.addMouseListener(mouseListener);
+
+          this.add(canvas);
+          this.setVisible(true);
+      }
+
+      public static void main(String[] args) {
+          new SimplePainter();
+      }
+  }
+
+  class SimpleCanvas extends Canvas {
+
+      private Color paintColor = Color.BLUE;
+
+      public void addPoint(int x, int y) {
+          Graphics g = this.getGraphics();
+          g.setColor(paintColor);
+          g.fillRect(x, y, 3, 3);
+      }
+
+      public void toggleColor() {
+          paintColor = paintColor == Color.BLUE ? Color.RED : Color.BLUE;
+      }
+  }
+
+  class CanvasMouseMotionListener extends MouseMotionAdapter {
+
+      private final SimpleCanvas canvas;
+
+      CanvasMouseMotionListener(SimpleCanvas canvas) {
+          this.canvas = canvas;
+      }
+
+      @Override
+      public void mouseMoved(MouseEvent mouseEvent) {
+          canvas.addPoint(mouseEvent.getX(), mouseEvent.getY());
+      }
+  }
+
+  class CanvasMouseListener extends MouseAdapter {
+
+      private final SimpleCanvas canvas;
+
+      CanvasMouseListener(SimpleCanvas canvas) {
+          this.canvas = canvas;
+      }
+
+      @Override
+      public void mouseClicked(MouseEvent mouseEvent) {
+          canvas.toggleColor();
+      }
+  }
+```
